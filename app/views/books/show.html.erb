@@ -1,5 +1,5 @@
 <div class="container px-5 px-sm-0">
-  
+
   <%= render'errors',book:@book %>
 
  <div class="row">
@@ -10,7 +10,7 @@
         <h2>Book details</h2>
         <table class="table table-hover table-inverse">
           <tbody>
-                <tr>
+                <tr id="book_<%= @book.id %>">
                   <td>
                     <%= link_to user_path(@user.id) do %>
                      <%= image_tag @book.user.get_profile_image(80,80) %>
@@ -24,6 +24,9 @@
                      <%= @book.title %>
                     <% end %>
                   </td>
+                  <td class="fab-btn"><%= render 'books/favorite', book: @book %></td>
+                  <td class="comments-count">コメント数:<%= @book.book_comments.count %></td>
+
                   <td><%= @book.body %></td>
                   <% if @book.user == current_user %>
                    <td><%= link_to "Edit",edit_book_path(@book.id), class: "btn btn-sm btn-success" %></td>
@@ -33,6 +36,13 @@
                 </tr>
           </tbody>
        </table>
+
+
+       <div class="book-comments">
+          <%= render 'book_comments/comments', book: @book %>
+       </div>
+       <%= render 'book_comments/form' %>
+
   </div>
  </div>
 </div>

@@ -1,10 +1,10 @@
 <div class="container px-5 px-sm-0">
-  
-    <%= render'books/errors',book:@book %>
 
-  
+    <%= render 'books/errors',book: @book %>
+
+
   <div class="row">
-    <%= render'books/list',user:@user,book:@book %>
+    <%= render 'books/list',user: @user,book: @book %>
 
     <div class="col-md-8 offset-md-1">
       <h2>Users</h2>
@@ -13,7 +13,10 @@
           <tr>
             <th>Image</th>
             <th>name</th>
-            <th colspan="3"></th>
+            <th>followings</th>
+            <th>followers</th>
+            <th></th>
+            <th colspan="1"></th>
           </tr>
         </thead>
         <tbody>
@@ -23,6 +26,9 @@
               <%= image_tag user.get_profile_image(80,80) %>
             </td>
             <td><%= user.name %></td>
+            <td class="followings-count"><%= user.followings.count %></td>
+            <td class="followers-count"><%= user.followers.count %></td>
+            <td class="follow-btn"><%= render "relationships/followbtn", user: user %></td>
             <td><%= link_to "Show",user_path(user.id) %></td>
           </tr>
         <% end %>
