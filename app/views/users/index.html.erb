@@ -26,15 +26,15 @@
               <%= image_tag user.get_profile_image(80,80) %>
             </td>
             <td><%= user.name %></td>
-            <td class="followings-count_<%= user.id %>">
+            <td id="followings-count_<%= user.id %>">
               <%= link_to "#{ user.followings.count}", user_followings_path(user.id) %>
 
             </td>
-            <td class="followers-count_<%= user.id %>">
+            <td id="followers-count_<%= user.id %>">
               <%= link_to "#{ user.followers.count}", user_followers_path(user.id) %>
 
             </td>
-            <td class="follow-btn_<%= user.id %>">
+            <td id="follow-btn_<%= user.id %>">
               <%= render "relationships/followbtn", user: user %>
             </td>
 
