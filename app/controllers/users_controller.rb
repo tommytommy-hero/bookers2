@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :ensure_guest_user, only: [:edit]
 
   def index
-    @users = User.all
+    @users = User.page(params[:page])
     @user = current_user
     @book = Book.new
   end
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @book = Book.new
-    @books = @user.books
+    @books = @user.books.page(params[:page])
   end
 
   def edit
