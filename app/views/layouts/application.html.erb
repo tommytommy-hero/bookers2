@@ -95,6 +95,7 @@
     <% flash.each do |key, value| %>
     <%= content_tag(:div, value, class: "#{key}") %>
     <% end %>
+    <%= render "layouts/search" %>
 
     <%= yield %>
     </main>

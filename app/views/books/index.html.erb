@@ -1,44 +1,14 @@
 <div class="container px-5 px-sm-0">
 
-  <%= render'errors',book:@book %>
+  <%= render 'errors',book:@book %>
 
  <div class="row">
 
-    <%= render'list',user: @user,book: @book %>
+    <%= render 'list',user: @user,book: @book %>
 
     <div class="col-md-8 offset-md-1">
-        <h2>Books</h2>
-        <table class="table table-hover table-inverse">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Title</th>
-                    <th>Opinion</th>
-                    <th></th>
-                    <th colspan="3"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <% @books.each do |book| %>
-                  <tr id="book_<%= book.id %>">
-                      <td>
-                      <%= link_to user_path(book.user.id) do %>
-                       <%= image_tag book.user.get_profile_image(80,80) %>
-                      <% end %>
-                      </td>
-                      <td>
-                      <%= link_to book_path(book.id) do %>
-                        <%= book.title %>
-                      <% end %>
-                      </td>
-                      <td><%= book.body %></td>
-                      <td class="fab-btn"><%= render 'books/favorite', book: book %></td>
-                      <td class="comments-count">コメント数:<%= book.book_comments.count %></td>
-                  </tr>
-                <% end %>
-                <%= paginate @books %>
-            </tbody>
-        </table>
+      <h2>Books</h2>
+      <%= render 'index',books: @books %>
     </div>
  </div>
 </div>

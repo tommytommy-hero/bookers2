@@ -1,0 +1,34 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>name</th>
+      <th>followings</th>
+      <th>followers</th>
+      <th></th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% users.each do |user| %>
+    <tr>
+      <td>
+      <%= image_tag user.get_profile_image(80,80) %>
+      </td>
+      <td><%= user.name %></td>
+      <td id="followings-count_<%= user.id %>">
+      <%= link_to "#{ user.followings.count}", user_followings_path(user.id) %>
+      </td>
+      <td id="followers-count_<%= user.id %>">
+        <%= link_to "#{ user.followers.count}", user_followers_path(user.id) %>
+      </td>
+      <td id="follow-btn_<%= user.id %>">
+        <%= render "relationships/followbtn", user: user %>
+      </td>
+
+      <td><%= link_to "Show",user_path(user.id) %></td>
+    </tr>
+  <% end %>
+  <%= paginate users %>
+  </tbody>
+</table>
