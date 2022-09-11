@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'events/index'
     root to: "homes#top"
   get 'home/about' =>  'homes#about',as:'about'
 
