@@ -24,6 +24,7 @@
                      <%= @book.title %>
                     <% end %>
                   </td>
+                  <td><%= @book.genre %></td>
                   <td class="fab-btn"><%= render 'books/favorite', book: @book %></td>
                   <td class="comments-count">コメント数:<%= @book.book_comments.count %></td>
 

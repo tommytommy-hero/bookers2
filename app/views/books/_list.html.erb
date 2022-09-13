@@ -27,7 +27,7 @@
       </tr>
     </tbody>
   </table>
-  <%= link_to "カレンダー",events_index_path %>
+  <%= link_to "カレンダー",events_path %>
   <div class="row">
     <% if user == current_user %>
       <%= link_to edit_user_path(user),class:"btn btn-outline-secondary btn-block" do %>

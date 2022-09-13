@@ -14,6 +14,11 @@
         </div>
     </div>
 
+    <div class="form-group">
+      <label for="book-genre">Genre</label>
+      <%= f.select :genre, ['小説', 'プログラミング', 'ビジネス'], {include_blank: '---'} %>
+    </div>
+
     <div class="create-btn">
       <%= f.submit 'Create Book', class: "btn btn-success" %>
     </div>

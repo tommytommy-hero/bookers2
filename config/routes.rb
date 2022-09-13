@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
-  get 'events/index'
-    root to: "homes#top"
+  root to: "homes#top"
   get 'home/about' =>  'homes#about',as:'about'
-
 
   devise_for :users
 
@@ -20,8 +18,11 @@ Rails.application.routes.draw do
 
   get 'search' => 'searches#search'
 
+  resources :events
+
   devise_scope :user do
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

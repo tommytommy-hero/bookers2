@@ -1,18 +1,19 @@
+// インストールしたファイルたちを呼び出します。
 import { Calendar} from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
-import monthGridPlugin from '@fullcalendar/daygrid'
-import googleCalendarApi from '@fullcalendar/google-calendar'
+import monthGridPlugin from '@fullcalendar/daygrid';
+import googleCalendarApi from '@fullcalendar/google-calendar';
 
-//<div id='calendar'></div>のidからオブジェクトを定義してカレンダーを作っていきます。
+//<div id='calendar'></div>のidからオブジェクトを定義してカレンダーを作成
+
 document.addEventListener('turbolinks:load', function() {
     var calendarEl = document.getElementById('calendar');
 
-    //カレンダーの中身を設定(月表示とか、クリックアクション起こしたいとか、googleCalendar使うととか)
+    //　カレンダーの中身を設定(月表示、クリックアクションを起こす、googleCalendar使用)
     var calendar = new Calendar(calendarEl, {
         plugins: [ monthGridPlugin, interactionPlugin, googleCalendarApi ],
 
-
-        //細かな表示設定
+        events: '/events.json',　　 // イベントをjsonにて表示
         locale: 'ja',
         timeZone: 'Asia/Tokyo',
         firstDay: 1,
@@ -21,24 +22,46 @@ document.addEventListener('turbolinks:load', function() {
           center: 'title',
           end: 'today prev,next'
         },
-        expandRows: true,
-        stickyHeaderDates: true,
         buttonText: {
            today: '今日'
         },
         allDayText: '終日',
         height: "auto",
-
-        dateClick: function(info){
-            //日付をクリックしたときのイベント(詳しくは次回の記事へ)
+        editable: true,  // イベントの移動
+        displayEventTime: false,  // 時刻の非表示
+        
+        // イベントを移動した時の処理
+        eventDrop: function(info) {
+            $.ajax({
+                type: 'PATCH',
+                url: '/events/' + info.event.id,
+                data: { start: info.event.start,
+                        end: info.event.end
+                },
+            });
         },
-        eventClick: function(info){
-            //表示されたイベントをクリックしたときのイベント(詳しくは次回の記事へ)
+        // イベントをクリックした時の処理
+        eventClick: function(info) {
+          if(confirm('削除しますか？'))  {
+          $.ajax({
+              type: 'DELETE',
+              url: '/events/' + info.event.id,
+            });
+            info.event.remove();
+          }
         },
-        eventClassNames: function(arg){
-            //表示されたイベントにclassをcss用に追加する(詳しくは次回の記事へ)
+        
+        // 日付をクリックした時の処理
+        dateClick: function(info) {
+            $.ajax({
+                type: 'GET',
+                url:  '/events/new',
+            }).done(function (res) {
+                $('.modal-body').html(res);
+            }).fail(function (result) {
+                alert("failed");
+            });
         }
-
     });
     //カレンダー表示
     calendar.render();
