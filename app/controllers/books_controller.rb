@@ -18,8 +18,12 @@ class BooksController < ApplicationController
     end
   end
 
+  def confirm
+    @books = current_user.books.draft.page(params[:page])
+  end
+
   def index
-    @books = Book.page(params[:page])
+    @books = Book.published.page(params[:page])
     @book = Book.new
     @user = current_user
   end
@@ -59,7 +63,7 @@ class BooksController < ApplicationController
 
   private
     def book_params
-      params.require(:book).permit(:title, :body, :genre)
+      params.require(:book).permit(:title, :body, :status)
     end
 
     def correct_user

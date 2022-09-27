@@ -24,14 +24,14 @@
                      <%= @book.title %>
                     <% end %>
                   </td>
-                  <td><%= @book.genre %></td>
+                  <td></td>
                   <td class="fab-btn"><%= render 'books/favorite', book: @book %></td>
                   <td class="comments-count">コメント数:<%= @book.book_comments.count %></td>
 
                   <td><%= @book.body %></td>
                   <% if @book.user == current_user %>
-                   <td><%= link_to "Edit",edit_book_path(@book.id), class: "btn btn-sm btn-success" %></td>
-                   <td><%= link_to "Destroy", @book, method: :delete, data: { confirm: '本当に消しますか?'} ,
+                   <td><%= link_to "編集",edit_book_path(@book.id), class: "btn btn-sm btn-success" %></td>
+                   <td><%= link_to "削除", @book, method: :delete, data: { confirm: '本当に消しますか?'} ,
                                     class: "btn btn-sm btn-danger"%></td>
                   <% end %>
                 </tr>

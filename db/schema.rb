@@ -52,10 +52,9 @@ ActiveRecord::Schema.define(version: 2022_09_13_004647) do
     t.text "title"
     t.text "body"
     t.integer "user_id"
+    t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "star"
-    t.string "genre"
   end
 
   create_table "events", force: :cascade do |t|
